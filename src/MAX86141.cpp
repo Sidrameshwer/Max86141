@@ -200,23 +200,25 @@ void MAX86141::setNumbPD(int pd){
   nb_pd= pd;
   if(nb_pd==1){
           //write_reg(REG_MODE_CONFIG, 0xA);
-    write_reg(REG_MODE_CONFIG, 0xB);
+    write_reg(REG_MODE_CONFIG, 0xB);   //REG_MODE_CONFIG (0x0D) System Control
   }
   else
           //write_reg(REG_MODE_CONFIG, 0x2);
     write_reg(REG_MODE_CONFIG, 0x3);
 }
-
+// Number of LEDs
 void MAX86141::setLedModeSize( int size_led){
   ledModeSize= size_led;
 }
-
+//REG_LED_SEQ_1   (0x20)
+//REG_LED_SEQ_2   (0x21)
+//REG_LED_SEQ_3   (0x22)
 void MAX86141::setLedMode(int *ledMd){
   ledMode = ledMd;
   if(ledModeSize==1){
     Serial.print("1 LED CONTROL SEQ1");
-    Serial.println(ledMode[0],BIN);
-    write_reg(REG_LED_SEQ_1, ledMode[0]);
+    Serial.println(ledMode[0],BIN);    // Prints LED mode in BINARY
+    write_reg(REG_LED_SEQ_1, ledMode[0]);    //ledMode values are set according to LED Configuration. Available in 'configuration.h'
   }
   else if(ledModeSize==2){
     ledMode[1]= ledMode[1]<<4; 
