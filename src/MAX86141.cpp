@@ -206,7 +206,7 @@ void MAX86141::setNumbPD(int pd){
           //write_reg(REG_MODE_CONFIG, 0x2);
     write_reg(REG_MODE_CONFIG, 0x3);
 }
-// Number of LEDs
+// Number of Sequences
 void MAX86141::setLedModeSize( int size_led){
   ledModeSize= size_led;
 }
@@ -214,7 +214,7 @@ void MAX86141::setLedModeSize( int size_led){
 //REG_LED_SEQ_2   (0x21)
 //REG_LED_SEQ_3   (0x22)
 void MAX86141::setLedMode(int *ledMd){
-  ledMode = ledMd;
+  ledMode = ledMd;  //ledMode the 4 bits of LEDCX used for the exposures
   if(ledModeSize==1){
     Serial.print("1 LED CONTROL SEQ1");
     Serial.println(ledMode[0],BIN);    // Prints LED mode in BINARY
@@ -609,7 +609,7 @@ int  MAX86141::device_data_read1()
  //uint8_t dataBuf[FIFO_SAMPLES*3];
 
 //read_fifo(dataBuf,sample_count);
-  read_fifo(dataBuf, FIFO_SAMPLES);
+  read_fifo(dataBuf, FIFO_SAMPLES);   // 
 
 /*
 for(int i=0; i<sample_count*3;i++){
