@@ -270,6 +270,18 @@ void MAX86141::setLedMode(int *ledMd){
 }
 }
 
+/*Depending on the ledMode[] values, REG_LED_RANGE_1 values are set 
+ REG_LED_RANGE_1 0x2A
+ BIT[1:0]= LED1_RGE[1:0]
+ BIT[3:2]= LED2_RGE[1:0]
+ BIT[5:4]= LED3_RGE[1:0]
+LEDX_RGE[1:0]  CURRENT(mA)
+00               31
+01               62
+10               93
+11               124
+
+ */
 
 void MAX86141::setIntensityLed(int intens_led, int* LedMode1){
     intensity_led= intens_led;
@@ -360,13 +372,13 @@ void MAX86141::setIntensityLed(int intens_led, int* LedMode1){
         }
       }
   }
-
+  
     if( ledModeSize == 3) {
       for(int i=0; i<ledModeSize; i++) {
 
         if(ledMode[i] == 1){
           write_reg(REG_LED_RANGE_1, 0b00000011); // xx,LED3,LED2,LED1. 00,01,10,11 low to high
-          write_reg(REG_LED1_PA, intensity_led);
+          write_reg(REG_LED1_PA, intensity_led);   // REG_LED1_PA  (0x23)
         }
         if(ledMode[i] == 2){
           write_reg(REG_LED_RANGE_1, 0b00001100); // xx,LED3,LED2,LED1. 00,01,10,11 low to high
