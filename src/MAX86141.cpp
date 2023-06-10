@@ -625,6 +625,8 @@ for(int i=0; i<sample_count*3;i++){
 //suitable formatting of data for 1 LED control
    if(ledModeSize==1){
 /* Reading of 1 sample for Serial Test */
+/*Bit operations are performed so tht we get the First 5 bits tagSeq1A_PD1 
+  and the remaing bits contain the value */
     tagSeq1A_PD1 = (dataBuf[0] >> 3) & 0x1f;
     ledSeq1A_PD1 = ((dataBuf[0] << 16) | (dataBuf[1] << 8) | (dataBuf[2])) & 0x7ffff;
 
